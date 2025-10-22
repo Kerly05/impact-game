@@ -12,7 +12,7 @@ clock = pygame.time.Clock()
 VENTANA = pygame.display.set_mode((ANCHO, ALTO)) # dibujar la ventana y guardar su referencia en WINDOW
 pygame.display.set_caption("IMPACT") # Titulo de la ventana
 
-icon = pygame.image.load("./ico.png")
+icon = pygame.image.load("./assets/ico.png")
 pygame.display.set_icon(icon)
 
 
@@ -66,7 +66,7 @@ jugador1 = Jugador(40) # crea una instancia de Jugador en la posición x=40
 jugador2 = Jugador(ANCHO - 40 - 20) # crea una instancia de Jugador en la posición x=900
 pelota = Pelota() # crea una instancia de Pelota
 
-fondo = pygame.image.load("./background.png")
+fondo = pygame.image.load("./assets/background.png")
 fondo = pygame.transform.scale(fondo, (ANCHO, ALTO))
 
 font = pygame.font.Font(None, 50)
