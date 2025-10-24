@@ -1,3 +1,4 @@
+#ESTUDIAR
 import pygame, sys  # Importa la librería Pygame para gráficos y sys para salir del programa
 
 # Inicializa todos los módulos de Pygame
