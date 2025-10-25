@@ -4,6 +4,11 @@ pygame.init()
 
 ANCHO, ALTO = 960, 540
 
+# Colores
+AZUL=(0, 191, 255)
+VERDE= (0, 244, 0)
+
+
 FPS = 100
 clock = pygame.time.Clock()
 
@@ -28,7 +33,7 @@ class Jugador:
             self.rect.y += self.velocidad
 
     def pintar(self):
-        pygame.draw.rect(VENTANA, (0, 191, 255), self.rect, border_radius=99)
+        pygame.draw.rect(VENTANA, AZUL, self.rect, border_radius=99)
 
 
 class Pelota:
@@ -39,7 +44,7 @@ class Pelota:
 
     def mover(self):
         self.rect.x += self.velocity_x
-        self.rect.y += self.velocity_y
+        self.rect.y += self.velocity_y      
 
         if self.rect.top < 0 or self.rect.bottom > ALTO:
             self.velocity_y *= -1
@@ -57,13 +62,12 @@ class Pelota:
             self.velocity_x *= -1
 
     def pintar(self):
+        pygame.draw.ellipse(VENTANA, VERDE, self.rect)
 
-        pygame.draw.ellipse(VENTANA, (0, 244, 0), self.rect)
 
-
-jugador1 = Jugador(40)  #
-jugador2 = Jugador(ANCHO - 40 - 20)
-pelota = Pelota()
+jugador1 = Jugador(40)                       # objetos             
+jugador2 = Jugador(ANCHO - 40 - 20 )         # objetos
+pelota = Pelota()                            # objetos
 
 fondo = pygame.image.load("./assets/background.png")
 fondo = pygame.transform.scale(fondo, (ANCHO, ALTO))
@@ -71,32 +75,12 @@ fondo = pygame.transform.scale(fondo, (ANCHO, ALTO))
 font = pygame.font.Font(None, 50)
 
 while True:
-    VENTANA.fill("black")
     marcador = font.render(
         f"{jugador1.puntuacion}   {jugador2.puntuacion}", True, "white"
     )
 
     VENTANA.blit(fondo, (0, 0))
-    pygame.draw.rect(
-        VENTANA,
-        "orange",
-        (
-            ANCHO // 2 - marcador.get_width() // 2 - 2,
-            18,
-            marcador.get_width() + 4,
-            marcador.get_height() + 4,
-        ),
-        width=4,
-        border_radius=8,
-    )
-    pygame.draw.rect(
-        VENTANA,
-        "orange",
-        (ANCHO // 2, 18, marcador.get_width() // 2 + 4, marcador.get_height() + 4),
-        width=4,
-        border_bottom_right_radius=8,
-        border_top_right_radius=8,
-    )
+
     VENTANA.blit(marcador, (ANCHO // 2 - marcador.get_width() // 2, 20))
 
     jugador1.pintar()
@@ -110,13 +94,13 @@ while True:
 
     pelota.check_collision(jugador1, jugador2)
 
-    if pelota.rect.right <= 0:
+    if pelota.rect.left <= 0:
         jugador2.puntuacion += 1
         pelota.reaparecer()
     if pelota.rect.right >= ANCHO:
         jugador1.puntuacion += 1
         pelota.reaparecer()
-
+     
     pygame.display.flip()
 
     for evento in pygame.event.get():
